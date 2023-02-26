@@ -1,7 +1,10 @@
 package moon.calculate.user.service;
 
-import moon.calculate.user.dao.Users;
+import moon.calculate.user.dao.UserEntity;
 
+/**
+ * 用户VO
+ */
 public class UserVO {
 
     private String id = "";
@@ -59,14 +62,14 @@ public class UserVO {
         this.token = token;
     }
 
-    public Users toEntity() {
-        Users userEntity = new Users();
-        userEntity.setId(this.id);
-        userEntity.setUsername(this.username);
-        userEntity.setPassword(this.password);
-        userEntity.setCategory(this.category);
-        userEntity.setStatus(this.status);
-        userEntity.setToken(this.token);
-        return userEntity;
+    public UserEntity toEntity() {
+        UserEntity entity = new UserEntity();
+        entity.setId(this.id);
+        entity.setUsername(this.username);
+        entity.setPassword(this.password);
+        entity.setCategory(this.category);
+        entity.setStatus(this.status);
+        entity.setToken(this.token);
+        return entity;
     }
 }

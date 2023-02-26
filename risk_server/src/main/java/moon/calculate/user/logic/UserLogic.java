@@ -1,8 +1,9 @@
 package moon.calculate.user.logic;
 
 import moon.calculate.tools.MyBatisUtil;
-import moon.calculate.user.dao.UserMapper;
-import moon.calculate.user.dao.Users;
+import moon.calculate.user.dao.UserDAO;
+import moon.calculate.user.dao.UserEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
@@ -10,17 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * 用户
+ */
 @Component
 public class UserLogic {
 
-    public int insert(Users userEntity) {
+    /**
+     * 新增
+     * @param userEntity
+     * @return
+     */
+    public int insert(UserEntity userEntity) {
         SqlSession sqlSession = null;
         try {
             sqlSession = MyBatisUtil.getSqlSession();
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            UserDAO userDAO = sqlSession.getMapper(UserDAO.class);
             userEntity.setId(UUID.randomUUID().toString());
-            userEntity.setStatus("0");
-            return userMapper.insert(userEntity);
+            if(StringUtils.isBlank(userEntity.getStatus())) {
+                userEntity.setStatus("0");
+            }
+            return userDAO.insert(userEntity);
         } catch (Exception e) {
             return -1;
         } finally {
@@ -30,12 +41,17 @@ public class UserLogic {
         }
     }
 
-    public int update(Users userEntity) {
+    /**
+     * 更新
+     * @param userEntity
+     * @return
+     */
+    public int update(UserEntity userEntity) {
         SqlSession sqlSession = null;
         try {
             sqlSession = MyBatisUtil.getSqlSession();
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            return userMapper.update(userEntity);
+            UserDAO userDAO = sqlSession.getMapper(UserDAO.class);
+            return userDAO.update(userEntity);
         } catch (Exception e) {
             return -1;
         } finally {
@@ -45,12 +61,17 @@ public class UserLogic {
         }
     }
 
-    public int delete(Users userEntity) {
+    /**
+     * 删除
+     * @param userEntity
+     * @return
+     */
+    public int delete(UserEntity userEntity) {
         SqlSession sqlSession = null;
         try {
             sqlSession = MyBatisUtil.getSqlSession();
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            return userMapper.delete(userEntity);
+            UserDAO userDAO = sqlSession.getMapper(UserDAO.class);
+            return userDAO.delete(userEntity);
         } catch (Exception e) {
             return -1;
         } finally {
@@ -60,12 +81,17 @@ public class UserLogic {
         }
     }
 
-    public List<Users> findlist(Users userEntity) {
+    /**
+     * 获取列表
+     * @param userEntity
+     * @return
+     */
+    public List<UserEntity> findlist(UserEntity userEntity) {
         SqlSession sqlSession = null;
         try {
             sqlSession = MyBatisUtil.getSqlSession();
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            return userMapper.findlist(userEntity);
+            UserDAO userDAO = sqlSession.getMapper(UserDAO.class);
+            return userDAO.findlist(userEntity);
         } catch (Exception e) {
             return new ArrayList<>();
         } finally {

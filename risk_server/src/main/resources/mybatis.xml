@@ -9,7 +9,7 @@
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url"
-                          value="jdbc:mysql://localhost:3306/riskpreventioncontroldb?characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai&amp;rewriteBatchedStatements=true"/>
+                          value="jdbc:mysql://localhost:3306/riskpreventioncontroldb?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;rewriteBatchedStatements=true"/>
                 <property name="username" value="root"/>
                 <!--<property name="password" value="123456"/>-->
                 <property name="password" value="Shao753951"/>
@@ -17,6 +17,10 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="moon/calculate/user/dao/UserMapper.xml"/>
+        <mapper resource="moon/calculate/user/dao/UserDAO.xml"/>
+        <mapper resource="moon/calculate/role/dao/RoleDAO.xml"/>
+        <mapper resource="moon/calculate/userrole/dao/UserRoleDAO.xml"/>
+        <mapper resource="moon/calculate/flow/dao/FlowDAO.xml"/>
+        <mapper resource="moon/calculate/approve/dao/ApproveDAO.xml"/>
     </mappers>
 </configuration>

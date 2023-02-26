@@ -14,7 +14,7 @@ public class CalculateServiceImpl implements ICalculateService {
     public WarningVO calculateresult(@RequestBody DataVO dataVO) {
         Rules rules = new Rules(dataVO);
         WarningVO warningVO = rules.warning();
-        warningVO.GetMessage();
+//        warningVO.GetMessage();
         return warningVO;
     }
 }

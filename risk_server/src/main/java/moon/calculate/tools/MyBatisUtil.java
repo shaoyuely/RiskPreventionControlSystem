@@ -34,4 +34,12 @@ public class MyBatisUtil {
         }
         return sqlSession;
     }
+
+    public static SqlSession getSqlSession(boolean b) {
+        SqlSession sqlSession = null;
+        if (getSqlSessionFactory() != null) {
+            sqlSession = getSqlSessionFactory().openSession(b);
+        }
+        return sqlSession;
+    }
 }

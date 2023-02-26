@@ -134,22 +134,22 @@ public class Rules {
      */
     private WarningVO WarningLeveOne(WarningVO result) {
         int weight = 0;
-        String impactConditions = "一级预警：";
+//        String impactConditions = "一级预警：";
         //阈值:长期偿债比率≤10%
         if (getLongTermDebtServiceRatio() != null &&
                 getLongTermDebtServiceRatio() <= 10) {
-            impactConditions += String.format("长期偿债比率≤10%%（%.4f%%）、", getLongTermDebtServiceRatio());
+//            impactConditions += String.format("长期偿债比率≤10%%（%.4f%%）、", getLongTermDebtServiceRatio());
             weight++;
         }
         //阈值:资产负债率≥行业平均负债率
         if ((dataVO.getAssetLiabilityRatio() != 0 && dataVO.getIndustryAverageDebtRatio() != 0) &&
                 dataVO.getAssetLiabilityRatio() >= dataVO.getIndustryAverageDebtRatio()) {
-            impactConditions += String.format("资产负债率≥行业平均负债率（%s）、",
-                    Double.toString(dataVO.getAssetLiabilityRatio()).concat("≥").concat(Double.toString(dataVO.getIndustryAverageDebtRatio())));
+//            impactConditions += String.format("资产负债率≥行业平均负债率（%s）、",
+//                    Double.toString(dataVO.getAssetLiabilityRatio()).concat("≥").concat(Double.toString(dataVO.getIndustryAverageDebtRatio())));
             weight++;
         }
 
-        result.setImpactConditions(trimEnd(impactConditions, "、"));
+//        result.setImpactConditions(trimEnd(impactConditions, "、"));
         if (weight == 1) {
             result.setEarlyWarningLevel(Tools.EarlyWarningLevel.LEVEL_ONE);
             result.setEarlyWarningProcessing(Tools.EarlyWarningProcessing.LEVEL_ONE);
@@ -171,29 +171,29 @@ public class Rules {
      */
     private WarningVO WarningLeveTwo(WarningVO result) {
         int weight = 0;
-        String impactConditions = trimEnd(result.getImpactConditions(), "、") + "\r\n" + "二级预警：";
+//        String impactConditions = trimEnd(result.getImpactConditions(), "、") + "\r\n" + "二级预警：";
         //阈值:中期偿债比率≤20%
         if (getMediumTermDebtServiceRatio() != null && getMediumTermDebtServiceRatio() <= 20) {
-            impactConditions += String.format("中期偿债比率≤20%%（%.4f%%）、", getMediumTermDebtServiceRatio());
+//            impactConditions += String.format("中期偿债比率≤20%%（%.4f%%）、", getMediumTermDebtServiceRatio());
             weight++;
         }
         //阈值:短期负债占比≥70%
         if (getProportionShortTermLiabilities() != null && getProportionShortTermLiabilities() >= 70) {
-            impactConditions += String.format("短期负债占比≥70%%（%.4f%%）、", getProportionShortTermLiabilities());
+//            impactConditions += String.format("短期负债占比≥70%%（%.4f%%）、", getProportionShortTermLiabilities());
             weight++;
         }
         //阈值:经营活动现金占比≤60%
         if (getProportionCashOperatingActivities() != null && getProportionCashOperatingActivities() <= 60) {
-            impactConditions += String.format("经营活动现金占比≤60%%（%.4f%%）、", getProportionCashOperatingActivities());
+//            impactConditions += String.format("经营活动现金占比≤60%%（%.4f%%）、", getProportionCashOperatingActivities());
             weight++;
         }
         //阈值:间接融资比率≥80%
         if (getIndirectFinancingRatio() != null && getIndirectFinancingRatio() >= 80) {
-            impactConditions += String.format("间接融资比率≥80%%（%.4f%%）、", getIndirectFinancingRatio());
+//            impactConditions += String.format("间接融资比率≥80%%（%.4f%%）、", getIndirectFinancingRatio());
             weight++;
         }
 
-        result.setImpactConditions(trimEnd(impactConditions, "、"));
+//        result.setImpactConditions(trimEnd(impactConditions, "、"));
         if (weight == 1) {
             result.setEarlyWarningLevel(Tools.EarlyWarningLevel.LEVEL_TWO);
             result.setEarlyWarningProcessing(Tools.EarlyWarningProcessing.LEVEL_TWO);
@@ -219,24 +219,24 @@ public class Rules {
      */
     private WarningVO WarningLeveThree(WarningVO result) {
         int weight = 0;
-        String impactConditions = trimEnd(result.getImpactConditions(), "、") + "<\r\n" + "三级预警：";
+//        String impactConditions = trimEnd(result.getImpactConditions(), "、") + "<\r\n" + "三级预警：";
         //阈值:销售现金比率≤50%
         if (getCashSalesRatio() != null && getCashSalesRatio() <= 50) {
-            impactConditions += String.format("销售现金比率≤50%%（%.4f%%）、", getCashSalesRatio());
+//            impactConditions += String.format("销售现金比率≤50%%（%.4f%%）、", getCashSalesRatio());
             weight++;
         }
         //阈值:筹资活动现金占比≥60%
         if (getProportionCashFinancingActivities() != null && getProportionCashFinancingActivities() >= 60) {
-            impactConditions += String.format("筹资活动现金占比≥60%%（%.4f%%）、", getProportionCashFinancingActivities());
+//            impactConditions += String.format("筹资活动现金占比≥60%%（%.4f%%）、", getProportionCashFinancingActivities());
             weight++;
         }
         //阈值:或有债务比率≥50%
         if (getContingentDebtRatio() != null && getContingentDebtRatio() >= 50) {
-            impactConditions += String.format("或有债务比率≥50%%（%.4f%%）、", getContingentDebtRatio());
+//            impactConditions += String.format("或有债务比率≥50%%（%.4f%%）、", getContingentDebtRatio());
             weight++;
         }
 
-        result.setImpactConditions(trimEnd(impactConditions, "、"));
+//        result.setImpactConditions(trimEnd(impactConditions, "、"));
         if (weight == 1) {
             result.setEarlyWarningLevel(Tools.EarlyWarningLevel.LEVEL_THREE);
             result.setEarlyWarningProcessing(Tools.EarlyWarningProcessing.LEVEL_THREE);
@@ -262,24 +262,24 @@ public class Rules {
      */
     private WarningVO WarningLeveFour(WarningVO result) {
         int weight = 0;
-        String impactConditions = trimEnd(result.getImpactConditions(), "、") + "\r\n" + "四级预警：";
+//        String impactConditions = trimEnd(result.getImpactConditions(), "、") + "\r\n" + "四级预警：";
         //阈值:短期偿债比率≤30%
         if (getShortTermDebtServiceRatio() != null && getShortTermDebtServiceRatio() <= 30) {
-            impactConditions += String.format("短期偿债比率≤30%%（%.4f%%）、", getShortTermDebtServiceRatio());
+//            impactConditions += String.format("短期偿债比率≤30%%（%.4f%%）、", getShortTermDebtServiceRatio());
             weight++;
         }
         //阈值:违约担保系数≥30%
         if (getDefaultGuaranteeCoefficient() != null && getDefaultGuaranteeCoefficient() >= 30) {
-            impactConditions += String.format("违约担保系数≥30%%（%.4f%%）、", getDefaultGuaranteeCoefficient());
+//            impactConditions += String.format("违约担保系数≥30%%（%.4f%%）、", getDefaultGuaranteeCoefficient());
             weight++;
         }
         //阈值:一年以内回购债务系数≥40%
         if (getRepurchaseDebtCoefficient() != null && getRepurchaseDebtCoefficient() >= 40) {
-            impactConditions += String.format("一年以内回购债务系数≥40%%（%.4f%%）、", getRepurchaseDebtCoefficient());
+//            impactConditions += String.format("一年以内回购债务系数≥40%%（%.4f%%）、", getRepurchaseDebtCoefficient());
             weight++;
         }
 
-        result.setImpactConditions(trimEnd(impactConditions, "、"));
+//        result.setImpactConditions(trimEnd(impactConditions, "、"));
         if (weight == 1 || weight == 2 || weight == 3) {
             result.setEarlyWarningLevel(Tools.EarlyWarningLevel.LEVEL_FOUR);
             result.setEarlyWarningProcessing(Tools.EarlyWarningProcessing.LEVEL_FOUR);
