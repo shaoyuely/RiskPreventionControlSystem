@@ -137,7 +137,7 @@ public class Rules {
 //        String impactConditions = "一级预警：";
         //阈值:长期偿债比率≤10%
         if (getLongTermDebtServiceRatio() != null &&
-                getLongTermDebtServiceRatio() <= 10) {
+                getLongTermDebtServiceRatio() <= dataVO.getLongTermDebtServiceRatioMax()) {
 //            impactConditions += String.format("长期偿债比率≤10%%（%.4f%%）、", getLongTermDebtServiceRatio());
             weight++;
         }
@@ -173,22 +173,22 @@ public class Rules {
         int weight = 0;
 //        String impactConditions = trimEnd(result.getImpactConditions(), "、") + "\r\n" + "二级预警：";
         //阈值:中期偿债比率≤20%
-        if (getMediumTermDebtServiceRatio() != null && getMediumTermDebtServiceRatio() <= 20) {
+        if (getMediumTermDebtServiceRatio() != null && getMediumTermDebtServiceRatio() <= dataVO.getMediumTermDebtServiceRatioMax()) {
 //            impactConditions += String.format("中期偿债比率≤20%%（%.4f%%）、", getMediumTermDebtServiceRatio());
             weight++;
         }
         //阈值:短期负债占比≥70%
-        if (getProportionShortTermLiabilities() != null && getProportionShortTermLiabilities() >= 70) {
+        if (getProportionShortTermLiabilities() != null && getProportionShortTermLiabilities() >= dataVO.getProportionShortTermLiabilitiesMin()) {
 //            impactConditions += String.format("短期负债占比≥70%%（%.4f%%）、", getProportionShortTermLiabilities());
             weight++;
         }
         //阈值:经营活动现金占比≤60%
-        if (getProportionCashOperatingActivities() != null && getProportionCashOperatingActivities() <= 60) {
+        if (getProportionCashOperatingActivities() != null && getProportionCashOperatingActivities() <= dataVO.getProportionCashOperatingActivitiesMax()) {
 //            impactConditions += String.format("经营活动现金占比≤60%%（%.4f%%）、", getProportionCashOperatingActivities());
             weight++;
         }
         //阈值:间接融资比率≥80%
-        if (getIndirectFinancingRatio() != null && getIndirectFinancingRatio() >= 80) {
+        if (getIndirectFinancingRatio() != null && getIndirectFinancingRatio() >= dataVO.getIndirectFinancingRatioMin()) {
 //            impactConditions += String.format("间接融资比率≥80%%（%.4f%%）、", getIndirectFinancingRatio());
             weight++;
         }
@@ -221,17 +221,17 @@ public class Rules {
         int weight = 0;
 //        String impactConditions = trimEnd(result.getImpactConditions(), "、") + "<\r\n" + "三级预警：";
         //阈值:销售现金比率≤50%
-        if (getCashSalesRatio() != null && getCashSalesRatio() <= 50) {
+        if (getCashSalesRatio() != null && getCashSalesRatio() <= dataVO.getCashSalesRatioMax()) {
 //            impactConditions += String.format("销售现金比率≤50%%（%.4f%%）、", getCashSalesRatio());
             weight++;
         }
         //阈值:筹资活动现金占比≥60%
-        if (getProportionCashFinancingActivities() != null && getProportionCashFinancingActivities() >= 60) {
+        if (getProportionCashFinancingActivities() != null && getProportionCashFinancingActivities() >= dataVO.getProportionCashFinancingActivitiesMin()) {
 //            impactConditions += String.format("筹资活动现金占比≥60%%（%.4f%%）、", getProportionCashFinancingActivities());
             weight++;
         }
         //阈值:或有债务比率≥50%
-        if (getContingentDebtRatio() != null && getContingentDebtRatio() >= 50) {
+        if (getContingentDebtRatio() != null && getContingentDebtRatio() >= dataVO.getContingentDebtRatioMin()) {
 //            impactConditions += String.format("或有债务比率≥50%%（%.4f%%）、", getContingentDebtRatio());
             weight++;
         }
@@ -264,17 +264,17 @@ public class Rules {
         int weight = 0;
 //        String impactConditions = trimEnd(result.getImpactConditions(), "、") + "\r\n" + "四级预警：";
         //阈值:短期偿债比率≤30%
-        if (getShortTermDebtServiceRatio() != null && getShortTermDebtServiceRatio() <= 30) {
+        if (getShortTermDebtServiceRatio() != null && getShortTermDebtServiceRatio() <= dataVO.getShortTermDebtServiceRatioMax()) {
 //            impactConditions += String.format("短期偿债比率≤30%%（%.4f%%）、", getShortTermDebtServiceRatio());
             weight++;
         }
         //阈值:违约担保系数≥30%
-        if (getDefaultGuaranteeCoefficient() != null && getDefaultGuaranteeCoefficient() >= 30) {
+        if (getDefaultGuaranteeCoefficient() != null && getDefaultGuaranteeCoefficient() >= dataVO.getDefaultGuaranteeCoefficientMin()) {
 //            impactConditions += String.format("违约担保系数≥30%%（%.4f%%）、", getDefaultGuaranteeCoefficient());
             weight++;
         }
         //阈值:一年以内回购债务系数≥40%
-        if (getRepurchaseDebtCoefficient() != null && getRepurchaseDebtCoefficient() >= 40) {
+        if (getRepurchaseDebtCoefficient() != null && getRepurchaseDebtCoefficient() >= dataVO.getRepurchaseDebtCoefficientMin()) {
 //            impactConditions += String.format("一年以内回购债务系数≥40%%（%.4f%%）、", getRepurchaseDebtCoefficient());
             weight++;
         }

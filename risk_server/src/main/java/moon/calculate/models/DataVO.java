@@ -50,6 +50,25 @@ public class DataVO {
     //行业平均负债率
     private double industryAverageDebtRatio;
 
+    //一级预警阈值
+    private double longTermDebtServiceRatioMax;//阈值:长期偿债比率≤10%
+
+    //二级预警阈值
+    private double mediumTermDebtServiceRatioMax;//阈值:中期偿债比率≤20%
+    private double proportionShortTermLiabilitiesMin;//阈值:短期负债占比≥70%
+    private double proportionCashOperatingActivitiesMax;//阈值:经营活动现金占比≤60%
+    private double indirectFinancingRatioMin;//阈值:间接融资比率≥80%
+
+    //三级预警阈值
+    private double cashSalesRatioMax;//阈值:销售现金比率≤50%
+    private double proportionCashFinancingActivitiesMin;//阈值:筹资活动现金占比≥60%
+    private double contingentDebtRatioMin;//阈值:或有债务比率≥50%
+
+    //四级预警阈值
+    private double shortTermDebtServiceRatioMax;//阈值:短期偿债比率≤30%
+    private double defaultGuaranteeCoefficientMin;//阈值:违约担保系数≥30%
+    private double repurchaseDebtCoefficientMin;//阈值:一年以内回购债务系数≥40%
+
     private String showContent;
     private String showColor;
 
@@ -227,6 +246,94 @@ public class DataVO {
 
     public void setShowColor(String showColor) {
         this.showColor = showColor;
+    }
+
+    public double getLongTermDebtServiceRatioMax() {
+        return longTermDebtServiceRatioMax;
+    }
+
+    public void setLongTermDebtServiceRatioMax(double longTermDebtServiceRatioMax) {
+        this.longTermDebtServiceRatioMax = longTermDebtServiceRatioMax;
+    }
+
+    public double getMediumTermDebtServiceRatioMax() {
+        return mediumTermDebtServiceRatioMax;
+    }
+
+    public void setMediumTermDebtServiceRatioMax(double mediumTermDebtServiceRatioMax) {
+        this.mediumTermDebtServiceRatioMax = mediumTermDebtServiceRatioMax;
+    }
+
+    public double getProportionShortTermLiabilitiesMin() {
+        return proportionShortTermLiabilitiesMin;
+    }
+
+    public void setProportionShortTermLiabilitiesMin(double proportionShortTermLiabilitiesMin) {
+        this.proportionShortTermLiabilitiesMin = proportionShortTermLiabilitiesMin;
+    }
+
+    public double getProportionCashOperatingActivitiesMax() {
+        return proportionCashOperatingActivitiesMax;
+    }
+
+    public void setProportionCashOperatingActivitiesMax(double proportionCashOperatingActivitiesMax) {
+        this.proportionCashOperatingActivitiesMax = proportionCashOperatingActivitiesMax;
+    }
+
+    public double getIndirectFinancingRatioMin() {
+        return indirectFinancingRatioMin;
+    }
+
+    public void setIndirectFinancingRatioMin(double indirectFinancingRatioMin) {
+        this.indirectFinancingRatioMin = indirectFinancingRatioMin;
+    }
+
+    public double getCashSalesRatioMax() {
+        return cashSalesRatioMax;
+    }
+
+    public void setCashSalesRatioMax(double cashSalesRatioMax) {
+        this.cashSalesRatioMax = cashSalesRatioMax;
+    }
+
+    public double getProportionCashFinancingActivitiesMin() {
+        return proportionCashFinancingActivitiesMin;
+    }
+
+    public void setProportionCashFinancingActivitiesMin(double proportionCashFinancingActivitiesMin) {
+        this.proportionCashFinancingActivitiesMin = proportionCashFinancingActivitiesMin;
+    }
+
+    public double getContingentDebtRatioMin() {
+        return contingentDebtRatioMin;
+    }
+
+    public void setContingentDebtRatioMin(double contingentDebtRatioMin) {
+        this.contingentDebtRatioMin = contingentDebtRatioMin;
+    }
+
+    public double getShortTermDebtServiceRatioMax() {
+        return shortTermDebtServiceRatioMax;
+    }
+
+    public void setShortTermDebtServiceRatioMax(double shortTermDebtServiceRatioMax) {
+        this.shortTermDebtServiceRatioMax = shortTermDebtServiceRatioMax;
+    }
+
+    public double getDefaultGuaranteeCoefficientMin() {
+        return defaultGuaranteeCoefficientMin;
+    }
+
+    public void setDefaultGuaranteeCoefficientMin(double defaultGuaranteeCoefficientMin) {
+        this.defaultGuaranteeCoefficientMin = defaultGuaranteeCoefficientMin;
+    }
+
+    public double getRepurchaseDebtCoefficientMin() {
+        return repurchaseDebtCoefficientMin;
+    }
+
+    public void setRepurchaseDebtCoefficientMin(double repurchaseDebtCoefficientMin) {
+        this.repurchaseDebtCoefficientMin = repurchaseDebtCoefficientMin;
     }
 
     /**

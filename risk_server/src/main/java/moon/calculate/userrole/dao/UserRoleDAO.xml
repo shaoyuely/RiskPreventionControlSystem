@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="moon.calculate.userrole.dao.UserRoleDAO">
 
+    <resultMap id="UserRoleDomain" type="moon.calculate.userrole.dao.UserRoleEntity">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="roleName" column="role_name" />
+    </resultMap>
+
     <insert id="insert" parameterType="moon.calculate.userrole.dao.UserRoleEntity">
         insert into user_role
         (id,user_id,role_id)
@@ -21,7 +27,7 @@
         </where>
     </delete>
 
-    <select id="findByCondition" resultType="moon.calculate.userrole.dao.UserRoleEntity">
+    <select id="findByCondition" resultMap="UserRoleDomain">
         select * from user_role
         <where>
             <if test="userId != null and userId != ''">
