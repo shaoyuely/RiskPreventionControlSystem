@@ -1,5 +1,7 @@
 package moon.calculate.user.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import moon.calculate.tools.ResultTemplate;
 import moon.calculate.tools.StatusCode;
 import moon.calculate.user.dao.UserEntity;
@@ -7,10 +9,7 @@ import moon.calculate.user.logic.UserLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 用户
@@ -109,10 +108,23 @@ public class UserServiceImpl implements IUserService {
      */
     @RequestMapping(value = "/findlist", method = RequestMethod.POST)
     public ResultTemplate findlist(@RequestHeader Map<String, Object> header, @RequestBody UserVO userVO) {
-        List<UserVO> result = new ArrayList<>();
+        Page page = null;
+        if (Objects.nonNull(userVO.getPageNum()) && Objects.nonNull(userVO.getPageSize())) {
+            page = PageHelper.startPage(userVO.getPageNum(), userVO.getPageSize());
+        }
+        List<UserVO> resultList = new ArrayList<>();
         List<UserEntity> list = userLogic.findlist(userVO.toEntity());
         for (UserEntity u : list) {
-            result.add(u.toVO());
+            resultList.add(u.toVO());
+        }
+        Map<String, Object> keyMap = new HashMap<>();
+        Object result;
+        if (Objects.nonNull(page)) {
+            keyMap.put("totle", page.getTotal());
+            keyMap.put("data", resultList);
+            result = keyMap;
+        } else {
+            result = resultList;
         }
         return new ResultTemplate(StatusCode.SUCCESS, "查询成功", result);
     }

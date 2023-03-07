@@ -14,6 +14,8 @@ public class FlowVO {
     private String createTime = "";
     private String userId = "";
     private Integer warnLevel;
+    private Integer pageNum;
+    private Integer pageSize;
     private List<ApproveVO> approves;
 
     public String getId() {
@@ -62,6 +64,22 @@ public class FlowVO {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
     public List<ApproveVO> getApproves() {

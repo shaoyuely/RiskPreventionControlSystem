@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="moon.calculate.flow.dao.FlowDAO">
+
+    <resultMap id="FlowDomain" type="moon.calculate.flow.dao.FlowEntity">
+        <id property="id" column="id" javaType="java.lang.String"/>
+        <result property="flowTitle" column="flow_title" javaType="java.lang.String"/>
+        <result property="flowContent" column="flow_content" javaType="java.lang.String"/>
+        <result property="status" column="status" javaType="java.lang.String"/>
+        <result property="createTime" column="create_time" javaType="java.lang.String"/>
+        <result property="warnLevel" column="warn_level" javaType="java.lang.Integer"/>
+        <result property="userId" column="user_id" javaType="java.lang.String"/>
+        <collection property="approves" ofType="moon.calculate.approve.dao.ApproveEntity">
+            <id property="flowId" column="flow_id" javaType="java.lang.String"/>
+            <id property="checkUserId" column="check_user_id" javaType="java.lang.String"/>
+            <id property="checkContent" column="check_content" javaType="java.lang.String"/>
+            <id property="status" column="status" javaType="java.lang.String"/>
+            <id property="checkTime" column="check_time" javaType="java.lang.String"/>
+        </collection>
+    </resultMap>
+
+    <insert id="insert" parameterType="moon.calculate.flow.dao.FlowEntity">
+        insert into apply_flow
+        (id,flow_title,flow_content,status,create_time,user_id,warn_level)
+        values
+        (#{id},#{flowTitle},#{flowContent},#{status},#{createTime},#{userId},#{warnLevel})
+    </insert>
+
+    <update id="update" parameterType="moon.calculate.flow.dao.FlowEntity">
+        update apply_flow
+        <set>
+            <if test="flowTitle != null and flowTitle != ''">
+                flow_title= #{flowTitle},
+            </if>
+            <if test="flowContent != null and flowContent!=''">
+                flow_content= #{flowContent},
+            </if>
+            <if test="status != null and status!=''">
+                status= #{status},
+            </if>
+            <if test="warnLevel != null and warnLevel!=''">
+                warn_level= #{warnLevel},
+            </if>
+        </set>
+        where id= #{id}
+    </update>
+
+    <delete id="delete" parameterType="moon.calculate.flow.dao.FlowEntity">
+        delete from apply_flow
+        where id= #{id}
+    </delete>
+
+    <select id="findByLevel" resultMap="FlowDomain">
+        select id,flow_title,flow_content,status,create_time,user_id,warn_level
+        from apply_flow
+        <where>
+            <if test="warnLevel != null and warnLevel != ''">
+                warn_level= #{warnLevel}
+            </if>
+        </where>
+    </select>
+
+    <select id="findByUserId" resultMap="FlowDomain">
+        select a.*,e.check_user_id, e.check_content,e.check_time from apply_flow a left join examine_approve e
+        on a.id=e.flow_id
+        <where>
+            <if test="userId != null and userId != ''">
+                user_id= #{userId} or e.check_user_id=#{userId}
+            </if>
+        </where>
+    </select>
+</mapper>

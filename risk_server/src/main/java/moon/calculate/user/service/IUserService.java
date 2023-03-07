@@ -1,11 +1,9 @@
 package moon.calculate.user.service;
 
 import moon.calculate.tools.ResultTemplate;
-import moon.calculate.user.dao.UserEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +24,7 @@ public interface IUserService {
      * @param userVO
      * @return
      */
-    ResultTemplate update(@RequestHeader Map<String,Object> header, @RequestBody UserVO userVO);
+    ResultTemplate update(@RequestHeader Map<String, Object> header, @RequestBody UserVO userVO);
 
     /**
      * 登录
@@ -41,7 +39,7 @@ public interface IUserService {
      * @param userVO
      * @return
      */
-    ResultTemplate delete(@RequestHeader Map<String,Object> header, @RequestBody UserVO userVO);
+    ResultTemplate delete(@RequestHeader Map<String, Object> header, @RequestBody UserVO userVO);
 
     /**
      * 获取列表
@@ -49,5 +47,5 @@ public interface IUserService {
      * @param userVO
      * @return
      */
-    ResultTemplate findlist(@RequestHeader Map<String,Object> header, @RequestBody UserVO userVO);
+    ResultTemplate findlist(@RequestHeader Map<String, Object> header, @RequestBody UserVO userVO);
 }

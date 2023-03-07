@@ -1,5 +1,7 @@
 package moon.calculate.flow.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import moon.calculate.flow.dao.FlowEntity;
 import moon.calculate.flow.logic.FlowLogic;
 import moon.calculate.tools.ResultTemplate;
@@ -92,10 +94,23 @@ public class FlowServiceImpl {
      */
     @RequestMapping(value = "/findbyuserid", method = RequestMethod.POST)
     public ResultTemplate findbyuserid(@RequestHeader Map<String, Object> header, @RequestBody FlowVO flowVO) {
-        List<FlowVO> result = new ArrayList<>();
+        Page page = null;
+        if (Objects.nonNull(flowVO.getPageNum()) && Objects.nonNull(flowVO.getPageSize())) {
+            page = PageHelper.startPage(flowVO.getPageNum(), flowVO.getPageSize());
+        }
+        List<FlowVO> resultList = new ArrayList<>();
         List<FlowEntity> records = flowLogic.findByUserId(flowVO.toEntity());
         for (FlowEntity r : records) {
-            result.add(r.toVO());
+            resultList.add(r.toVO());
+        }
+        Map<String, Object> keyMap = new HashMap<>();
+        Object result;
+        if (Objects.nonNull(page)) {
+            keyMap.put("totle", page.getTotal());
+            keyMap.put("data", resultList);
+            result = keyMap;
+        } else {
+            result = resultList;
         }
         return new ResultTemplate(StatusCode.SUCCESS, "查询成功", result);
     }

@@ -13,6 +13,8 @@ public class UserVO {
     private String status = "";
     private String category = "";
     private String token = "";
+    private Integer pageNum;
+    private Integer pageSize;
 
     public String getId() {
         return id;
@@ -60,6 +62,22 @@ public class UserVO {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
     public UserEntity toEntity() {

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="moon.calculate.userrole.dao.UserRoleDAO">
+
+    <resultMap id="UserRoleDomain" type="moon.calculate.userrole.dao.UserRoleEntity">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="roleId" column="role_id" />
+    </resultMap>
+
+    <insert id="insert" parameterType="moon.calculate.userrole.dao.UserRoleEntity">
+        insert into user_role
+        (id,user_id,role_id)
+        values
+        (#{id},#{userId},#{roleId})
+    </insert>
+
+    <delete id="delete" parameterType="moon.calculate.userrole.dao.UserRoleEntity">
+        delete from user_role
+        <where>
+            <if test="userId != null and userId != ''">
+                and user_id= #{userId}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                and role_id= #{roleId}
+            </if>
+        </where>
+    </delete>
+
+    <select id="findByCondition" resultMap="UserRoleDomain">
+        select id,user_id,role_id from user_role
+        <where>
+            <if test="userId != null and userId != ''">
+                and user_id= #{userId}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                and role_id= #{roleId}
+            </if>
+        </where>
+    </select>
+</mapper>

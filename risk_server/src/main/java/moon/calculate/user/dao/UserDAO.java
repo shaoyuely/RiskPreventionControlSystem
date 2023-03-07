@@ -1,5 +1,6 @@
 package moon.calculate.user.dao;
 
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public interface UserDAO {
 
     /**
      * 新增
+     *
      * @param userEntity
      * @return
      */
@@ -19,6 +21,7 @@ public interface UserDAO {
 
     /**
      * 删除
+     *
      * @param userEntity
      * @return
      */
@@ -26,6 +29,7 @@ public interface UserDAO {
 
     /**
      * 删除
+     *
      * @param userEntity
      * @return
      */
@@ -33,6 +37,7 @@ public interface UserDAO {
 
     /**
      * 获取列表
+     *
      * @param userEntity
      * @return
      */

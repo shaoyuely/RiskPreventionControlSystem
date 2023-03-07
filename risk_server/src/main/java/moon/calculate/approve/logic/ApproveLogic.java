@@ -5,11 +5,12 @@ import moon.calculate.approve.dao.ApproveEntity;
 import moon.calculate.flow.dao.FlowDAO;
 import moon.calculate.flow.dao.FlowEntity;
 import moon.calculate.flow.logic.FlowLogic;
-import moon.calculate.tools.MyBatisUtil;
 import moon.calculate.userrole.dao.UserRoleDAO;
 import moon.calculate.userrole.dao.UserRoleEntity;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,8 +21,16 @@ import java.util.UUID;
 /**
  * 审批
  */
-@Component
+@Transactional
+@Service
 public class ApproveLogic {
+
+    @Autowired
+    private ApproveDAO approveDAO;
+    @Autowired
+    private UserRoleDAO userRoleDAO;
+    @Autowired
+    private FlowDAO flowDAO;
 
     public static final String AGREE = "1";
     public static final String DISAGREE = "0";
@@ -38,16 +47,12 @@ public class ApproveLogic {
      * @return
      */
     public int insert(ApproveEntity approveEntity) {
-        SqlSession sqlSession = null;
         try {
-            sqlSession = MyBatisUtil.getSqlSession();
-            ApproveDAO approveDAO = sqlSession.getMapper(ApproveDAO.class);
             approveEntity.setId(UUID.randomUUID().toString());
 
             UserRoleEntity userEntity = new UserRoleEntity();
             userEntity.setUserId(approveEntity.getCheckUserId());
             userEntity.setRoleId(FINAL_ROLE_ID);
-            UserRoleDAO userRoleDAO = sqlSession.getMapper(UserRoleDAO.class);
             //查询当次提交新审批人是否为最终审批人（总经理）
             if (userRoleDAO.findByCondition(userEntity) != null) {
                 approveEntity.setIsFinal(IS_FINAL);
@@ -57,10 +62,6 @@ public class ApproveLogic {
             return approveDAO.insert(approveEntity);
         } catch (Exception e) {
             return -1;
-        } finally {
-            if (sqlSession != null) {
-                sqlSession.close();
-            }
         }
     }
 
@@ -71,10 +72,7 @@ public class ApproveLogic {
      * @return
      */
     public int approve(ApproveEntity approveEntity) {
-        SqlSession sqlSession = null;
         try {
-            sqlSession = MyBatisUtil.getSqlSession();
-            ApproveDAO approveDAO = sqlSession.getMapper(ApproveDAO.class);
             approveEntity.setId(UUID.randomUUID().toString());
 
             //获取当前审批信息判断是否为最后一次
@@ -89,7 +87,6 @@ public class ApproveLogic {
                 UserRoleEntity userEntity = new UserRoleEntity();
                 userEntity.setUserId(approveEntity.getCheckUserId());
                 userEntity.setRoleId(FINAL_ROLE_ID);
-                UserRoleDAO userRoleDAO = sqlSession.getMapper(UserRoleDAO.class);
                 //查询当次提交新审批人是否为最终审批人（总经理）
                 if (userRoleDAO.findByCondition(userEntity) != null) {
                     //更新当前审批内容
@@ -105,7 +102,6 @@ public class ApproveLogic {
                     return approveDAO.insert(approveEntity);
                 } else {
                     //结束审批更新flow表状态
-                    FlowDAO flowDAO = sqlSession.getMapper(FlowDAO.class);
                     FlowEntity flowEntity = new FlowEntity();
                     flowEntity.setId(approveEntity.getFlowId());
                     //更新flow状态为审批结束
@@ -128,13 +124,11 @@ public class ApproveLogic {
                 a.setStatus(ISNOT_FINAL);
                 return approveDAO.insert(approveEntity);
             }
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();//回滚
             return -1;
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();//回滚
             return -1;
-        } finally {
-            if (sqlSession != null) {
-                sqlSession.close();
-            }
         }
     }
 
@@ -145,17 +139,10 @@ public class ApproveLogic {
      * @return
      */
     public List<ApproveEntity> findList(ApproveEntity approveEntity) {
-        SqlSession sqlSession = null;
         try {
-            sqlSession = MyBatisUtil.getSqlSession();
-            ApproveDAO approveDAO = sqlSession.getMapper(ApproveDAO.class);
             return approveDAO.findList(approveEntity);
         } catch (Exception e) {
             return new ArrayList<>();
-        } finally {
-            if (sqlSession != null) {
-                sqlSession.close();
-            }
         }
     }
 

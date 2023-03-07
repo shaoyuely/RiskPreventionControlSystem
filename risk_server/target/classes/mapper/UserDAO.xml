@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="moon.calculate.user.dao.UserDAO">
+
+    <resultMap id="UserDomain" type="moon.calculate.user.dao.UserEntity">
+        <id property="id" column="id" javaType="java.lang.String"/>
+        <result property="username" column="username" javaType="java.lang.String"/>
+        <result property="password" column="password" javaType="java.lang.String"/>
+        <result property="status" column="status" javaType="java.lang.String"/>
+        <result property="category" column="category" javaType="java.lang.String"/>
+        <result property="token" column="token" javaType="java.lang.String"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="moon.calculate.user.dao.UserEntity">
+        insert into users
+        (id,username,password,status,category,token)
+        values
+        (#{id},#{username},
+        #{password},#{status},
+        #{category},#{token})
+    </insert>
+
+    <update id="update" parameterType="moon.calculate.user.dao.UserEntity">
+        update users
+        <set>
+            <if test="username != null and username != ''">
+                username= #{username},
+            </if>
+            <if test="password != null and password!=''">
+                password= #{password},
+            </if>
+            <if test="status != null and status!=''">
+                status= #{status},
+            </if>
+            <if test="category != null and category != ''">
+                category= #{category},
+            </if>
+            <if test="token != null and token != ''">
+                token= #{token},
+            </if>
+        </set>
+        where id= #{id}
+    </update>
+
+    <delete id="delete" parameterType="moon.calculate.user.dao.UserEntity">
+        delete from users
+        where id= #{id}
+    </delete>
+
+    <select id="findlist" resultMap="UserDomain">
+        select * from users
+        <where>
+            <if test="id != null and id != ''">
+                and id= #{id}
+            </if>
+            <if test="username != null and username != ''">
+                and username= #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password= #{password}
+            </if>
+            <if test="status != null and status != ''">
+                and status= #{status}
+            </if>
+            <if test="category != null and category != ''">
+                and category= #{category}
+            </if>
+            <if test="token != null and token != ''">
+                and token= #{token}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -17,7 +17,7 @@ public interface IUserRoleService {
      * @param userRoleVO
      * @return
      */
-    ResultTemplate insert(@RequestHeader Map<String,Object> header, @RequestBody UserRoleVO userRoleVO);
+    ResultTemplate insert(@RequestHeader Map<String, Object> header, @RequestBody UserRoleVO userRoleVO);
 
     /**
      * 删除
@@ -25,7 +25,7 @@ public interface IUserRoleService {
      * @param userRoleVO
      * @return
      */
-    ResultTemplate delete(@RequestHeader Map<String,Object> header, @RequestBody UserRoleVO userRoleVO);
+    ResultTemplate delete(@RequestHeader Map<String, Object> header, @RequestBody UserRoleVO userRoleVO);
 
     /**
      * 获取列表
@@ -33,5 +33,5 @@ public interface IUserRoleService {
      * @param userRoleVO
      * @return
      */
-    ResultTemplate findbycondition(@RequestHeader Map<String,Object> header, @RequestBody UserRoleVO userRoleVO);
+    ResultTemplate findbycondition(@RequestHeader Map<String, Object> header, @RequestBody UserRoleVO userRoleVO);
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="moon.calculate.role.dao.RoleDAO">
+
+    <resultMap id="RoleDomain" type="moon.calculate.role.dao.RoleEntity">
+        <id property="id" column="id" />
+        <result property="roleName" column="role_name" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <insert id="insert" parameterType="moon.calculate.role.dao.RoleEntity">
+        insert into roles
+        (id,role_name,status)
+        values
+        (#{id},#{roleName},#{status})
+    </insert>
+
+    <update id="update" parameterType="moon.calculate.role.dao.RoleEntity">
+        update roles
+        <set>
+            <if test="roleName != null and roleName != ''">
+                role_name= #{roleName},
+            </if>
+            <if test="status != null and status!=''">
+                status= #{status},
+            </if>
+        </set>
+        where id= #{id}
+    </update>
+
+    <delete id="delete" parameterType="moon.calculate.role.dao.RoleEntity">
+        delete from roles
+        where id= #{id}
+    </delete>
+
+    <select id="findByCondition" resultMap="RoleDomain">
+        select id,role_name,status from roles
+        <where>
+            <if test="id != null and id != ''">
+                and id= #{id}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and role_name= #{roleName}
+            </if>
+        </where>
+    </select>
+</mapper>
