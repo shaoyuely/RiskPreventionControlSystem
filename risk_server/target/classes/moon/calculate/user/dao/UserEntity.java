@@ -1,7 +1,14 @@
 package moon.calculate.user.dao;
 
 
+import moon.calculate.role.dao.RoleEntity;
 import moon.calculate.user.service.UserVO;
+import moon.calculate.userrole.dao.UserRoleEntity;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class UserEntity {
 
@@ -11,6 +18,8 @@ public class UserEntity {
     private String status = "";
     private String category = "";
     private String token = "";
+    private List<UserRoleEntity> userRoleEntity;
+    private List<RoleEntity> roleEntity;
 
     public UserEntity() {
     }
@@ -63,6 +72,22 @@ public class UserEntity {
         this.token = token;
     }
 
+    public List<UserRoleEntity> getUserRoleEntity() {
+        return userRoleEntity;
+    }
+
+    public void setUserRoleEntity(List<UserRoleEntity> userRoleEntity) {
+        this.userRoleEntity = userRoleEntity;
+    }
+
+    public List<RoleEntity> getRoleEntity() {
+        return roleEntity;
+    }
+
+    public void setRoleEntity(List<RoleEntity> roleEntity) {
+        this.roleEntity = roleEntity;
+    }
+
     public UserVO toVO() {
         UserVO vo = new UserVO();
         vo.setId(this.id);
@@ -71,6 +96,18 @@ public class UserEntity {
         vo.setCategory(this.category);
         vo.setStatus(this.status);
         vo.setToken(this.token);
+        if (Objects.nonNull(userRoleEntity)) {
+            vo.setRoleIds(userRoleEntity.stream()
+                    .filter(ur-> StringUtils.isNoneBlank(ur.getRoleId()))
+                    .map(ur -> ur.getRoleId())
+                    .collect(Collectors.toList()));
+        }
+        if (Objects.nonNull(roleEntity)) {
+            vo.setRoleNames(roleEntity.stream()
+                    .filter(r-> StringUtils.isNoneBlank(r.getRoleName()))
+                    .map(r -> r.getRoleName())
+                    .collect(Collectors.toList()));
+        }
         return vo;
     }
 }

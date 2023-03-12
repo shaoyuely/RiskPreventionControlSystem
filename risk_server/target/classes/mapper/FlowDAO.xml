@@ -69,4 +69,15 @@
             </if>
         </where>
     </select>
+
+    <select id="findapprove" resultMap="FlowDomain">
+        select a.*,e.check_user_id, e.check_content,e.check_time from apply_flow a left join examine_approve e
+        on a.id=e.flow_id
+        <where>
+            e.check_content is null and e.check_time is null
+            <if test="userId != null and userId != ''">
+                AND e.check_user_id=#{userId}
+            </if>
+        </where>
+    </select>
 </mapper>

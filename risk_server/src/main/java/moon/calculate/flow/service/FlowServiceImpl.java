@@ -106,7 +106,36 @@ public class FlowServiceImpl {
         Map<String, Object> keyMap = new HashMap<>();
         Object result;
         if (Objects.nonNull(page)) {
-            keyMap.put("totle", page.getTotal());
+            keyMap.put("total", page.getTotal());
+            keyMap.put("data", resultList);
+            result = keyMap;
+        } else {
+            result = resultList;
+        }
+        return new ResultTemplate(StatusCode.SUCCESS, "查询成功", result);
+    }
+
+    /**
+     * 根据审批人获取待审批
+     *
+     * @param flowVO
+     * @return
+     */
+    @RequestMapping(value = "/findapprove", method = RequestMethod.POST)
+    public ResultTemplate findapprove(@RequestHeader Map<String, Object> header, @RequestBody FlowVO flowVO) {
+        Page page = null;
+        if (Objects.nonNull(flowVO.getPageNum()) && Objects.nonNull(flowVO.getPageSize())) {
+            page = PageHelper.startPage(flowVO.getPageNum(), flowVO.getPageSize());
+        }
+        List<FlowVO> resultList = new ArrayList<>();
+        List<FlowEntity> records = flowLogic.findapprove(flowVO.toEntity());
+        for (FlowEntity r : records) {
+            resultList.add(r.toVO());
+        }
+        Map<String, Object> keyMap = new HashMap<>();
+        Object result;
+        if (Objects.nonNull(page)) {
+            keyMap.put("total", page.getTotal());
             keyMap.put("data", resultList);
             result = keyMap;
         } else {

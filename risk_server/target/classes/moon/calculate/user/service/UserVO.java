@@ -2,6 +2,8 @@ package moon.calculate.user.service;
 
 import moon.calculate.user.dao.UserEntity;
 
+import java.util.List;
+
 /**
  * 用户VO
  */
@@ -13,6 +15,8 @@ public class UserVO {
     private String status = "";
     private String category = "";
     private String token = "";
+    private List<String> roleIds;
+    private List<String> roleNames;
     private Integer pageNum;
     private Integer pageSize;
 
@@ -62,6 +66,22 @@ public class UserVO {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public List<String> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<String> roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public List<String> getRoleNames() {
+        return roleNames;
+    }
+
+    public void setRoleNames(List<String> roleNames) {
+        this.roleNames = roleNames;
     }
 
     public Integer getPageNum() {

@@ -9,6 +9,16 @@
         <result property="status" column="status" javaType="java.lang.String"/>
         <result property="category" column="category" javaType="java.lang.String"/>
         <result property="token" column="token" javaType="java.lang.String"/>
+        <collection property="userRoleEntity" ofType="moon.calculate.userrole.dao.UserRoleEntity">
+            <id property="id" column="id" javaType="java.lang.String"></id>
+            <result property="userId" column="user_id" javaType="java.lang.String"/>
+            <result property="roleId" column="role_id" javaType="java.lang.String"/>
+        </collection>
+        <collection property="roleEntity" ofType="moon.calculate.role.dao.RoleEntity">
+            <id property="id" column="id" javaType="java.lang.String"></id>
+            <result property="roleName" column="role_name" />
+            <result property="status" column="status" />
+        </collection>
     </resultMap>
 
     <insert id="insert" parameterType="moon.calculate.user.dao.UserEntity">
@@ -48,25 +58,26 @@
     </delete>
 
     <select id="findlist" resultMap="UserDomain">
-        select * from users
+        select u.id,u.username,u.password,u.status,u.category,u.token,ur.role_id,r.role_name from users u
+        left join user_role ur on u.id=ur.user_id left join roles r on ur.role_id=r.id
         <where>
             <if test="id != null and id != ''">
-                and id= #{id}
+                and u.id= #{id}
             </if>
             <if test="username != null and username != ''">
-                and username= #{username}
+                and u.username= #{username}
             </if>
             <if test="password != null and password != ''">
-                and password= #{password}
+                and u.password= #{password}
             </if>
             <if test="status != null and status != ''">
-                and status= #{status}
+                and u.status= #{status}
             </if>
             <if test="category != null and category != ''">
-                and category= #{category}
+                and u.category= #{category}
             </if>
             <if test="token != null and token != ''">
-                and token= #{token}
+                and u.token= #{token}
             </if>
         </where>
     </select>

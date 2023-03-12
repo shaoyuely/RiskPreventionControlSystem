@@ -92,4 +92,18 @@ public class FlowLogic {
             return new ArrayList<>();
         }
     }
+
+    /**
+     * 根据审批人获取待审批
+     *
+     * @param flowEntity
+     * @return
+     */
+    public List<FlowEntity> findapprove(FlowEntity flowEntity) {
+        try {
+            return flowDAO.findapprove(flowEntity);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
 }

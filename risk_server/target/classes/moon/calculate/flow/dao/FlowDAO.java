@@ -41,4 +41,11 @@ public interface FlowDAO {
      * @return
      */
     List<FlowEntity> findByUserId(FlowEntity flowEntity);
+
+    /**
+     * 根据审批人获取待审批
+     * @param flowEntity
+     * @return
+     */
+    List<FlowEntity> findapprove(FlowEntity flowEntity);
 }

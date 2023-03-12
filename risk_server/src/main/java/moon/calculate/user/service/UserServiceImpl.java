@@ -120,7 +120,7 @@ public class UserServiceImpl implements IUserService {
         Map<String, Object> keyMap = new HashMap<>();
         Object result;
         if (Objects.nonNull(page)) {
-            keyMap.put("totle", page.getTotal());
+            keyMap.put("total", page.getTotal());
             keyMap.put("data", resultList);
             result = keyMap;
         } else {

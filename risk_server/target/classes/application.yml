@@ -4,9 +4,8 @@ spring:
   datasource:
     # 数据源基本配置
     username: root
-    password: 123456
+    password: "#@!321ewq"
     url: jdbc:mysql://47.94.201.113:3306/riskpreventioncontroldb?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
-#    url: jdbc:mysql://127.0.0.1:3306/riskpreventioncontroldb?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
     # driver-class需要注意mysql驱动的版本(com.mysql.cj.jdbc.Driver 或 com.mysql.jdbc.Driver)
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
